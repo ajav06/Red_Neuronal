@@ -9,7 +9,7 @@ import pandas as pd
 import pickle
 import sys
 
-def read_doc(path):
+def read_doc(path): # El parametro es la ruta donde se encuentra almacenado el documento, seguido del nombre del mismo
     """ Lee el documento .csv de entramiento """
     document = pd.read_csv(path, error_bad_lines=False)
     document.head()
@@ -22,7 +22,7 @@ def read_doc(path):
     return document
 
 
-def train_model(document):
+def train_model(document):  # El parametro es el documento leido anteriormento
     """ Entrena la red neuronal con un modelo matemático: 
         LinearSVC para la clasicación """
     X_train, X_test, y_train, y_test = train_test_split(document['Texto'], 
@@ -38,7 +38,7 @@ def train_model(document):
 
     return model, count_vect
 
-def test_model(paragraph, model):
+def test_model(paragraph, model): # Los parametros son: el párrafo de prueba y el modelo entrenado
     """ Prueba la red neuronal con párrafo de prueba,
         la cual, debe detectar que tipo de párrafo es """
     count_vect = model[1]
@@ -54,7 +54,7 @@ def test_model(paragraph, model):
 
     return type_prediction
 
-def save_model(paths, model):
+def save_model(paths, model): # Los parametros son: la ruta donde va almacenar y el modelo a almacenar
     """ Almacena en el disco los modelos de 
         entramiento de la red nueronal """
     filename_model = paths + 'finalized_model.sav'
@@ -68,7 +68,7 @@ def save_model(paths, model):
         print("Error inesperado: ", sys.exc_info()[0])
 
 
-def load_model(paths):
+def load_model(paths): # El parametro es la ruta donde esta almacenado el modelo de respaldo
     """ Recupera los modelos de entramiento de la 
         red nueronal, almacenados en el disco"""
     filename_model = paths + 'finalized_model.sav'
@@ -82,8 +82,17 @@ def load_model(paths):
     except:
         print("Error inesperado: ", sys.exc_info()[0])
 
-document = read_doc('boletines/boletines1.csv')
-model = train_model(document)
+
+# Para Entrenar
+# document = read_doc('boletines/boletines1.csv')
+# model = train_model(document)
+
+# Para Guardar
+# save_model('backup/')
+
+# Para Cargar los datos
+model = load_model('backup/')
+
 paragraph = "diari oficial de la generalitat de catalunya núm. 7316 - 24.2.2017 cve-dogc-b-17048101-2017 anuncios de la generalidad de cataluña otros entes infraestructures de la generalitat de catalunya, sau anuncio sobre la formalización de un contrato de servicios (ta-nb-01134.f1). 1.- se hace público, para conocimiento general, que infraestructures de la generalitat de catalunya, sau, sau, empresa pública de la generalitat de catalunya, ha formalizado el contrato que a continuación se detalla. perfil del contratante: http://www.infraestructures.gencat.cat. 2.- objeto del contrato: a) tipo: servicios. b) descripción: contrato de servicios para la asistencia técnica para la redacción del proyecto de trazado de mejora general. nueva carretera. eix del llobregat. implantación de un tercer carril reversible en la carretera c-16, del pk 96+500 al 117+300. tramo: berga – bagà. clave: ta-nb-01134.f1. d) cpv: 71311000-1. g) medio de publicación anuncio de lici"
 prediction = test_model(paragraph, model)
 print(prediction)

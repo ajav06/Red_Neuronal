@@ -1,18 +1,22 @@
-import tkinter as tk
 from tkinter import ttk
 from tkinter import Menu
 from tkinter import messagebox
 from tkinter.ttk import Progressbar
+
+import tkinter as tk
+import train_and_test_model
 
 class Application(tk.Tk):
     
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
         self.title("Etiquetado")
-        self.geometry("700x450")
+        self.iconbitmap('mining-icon.ico')
+        self.resizable(0,0)
+        self.geometry("485x385")
 
         #Tab
-        self.tab_control = ttk.Notebook(self, width=700, height=430)
+        self.tab_control = ttk.Notebook(self, width=480, height=355)
         self.tab1 = ttk.Frame(self.tab_control)
         self.tab2 = ttk.Frame(self.tab_control)
         self.tab_control.add(self.tab1, text='Entrenar')

@@ -91,8 +91,8 @@ def load_model(paths): # El parametro es la ruta donde esta almacenado el modelo
 # save_model('backup/')
 
 # Para Cargar los datos
-model = load_model('backup/')
-
-paragraph = "diari oficial de la generalitat de catalunya núm. 7316 - 24.2.2017 cve-dogc-b-17048101-2017 anuncios de la generalidad de cataluña otros entes infraestructures de la generalitat de catalunya, sau anuncio sobre la formalización de un contrato de servicios (ta-nb-01134.f1). 1.- se hace público, para conocimiento general, que infraestructures de la generalitat de catalunya, sau, sau, empresa pública de la generalitat de catalunya, ha formalizado el contrato que a continuación se detalla. perfil del contratante: http://www.infraestructures.gencat.cat. 2.- objeto del contrato: a) tipo: servicios. b) descripción: contrato de servicios para la asistencia técnica para la redacción del proyecto de trazado de mejora general. nueva carretera. eix del llobregat. implantación de un tercer carril reversible en la carretera c-16, del pk 96+500 al 117+300. tramo: berga – bagà. clave: ta-nb-01134.f1. d) cpv: 71311000-1. g) medio de publicación anuncio de lici"
-prediction = test_model(paragraph, model)
-print(prediction)
+if __name__ == "__main__":
+    model = load_model('backup/')
+    paragraph = "diari oficial de la generalitat de catalunya núm. 7316 - 24.2.2017 cve-dogc-b-17048101-2017 anuncios de la generalidad de cataluña otros entes infraestructures de la generalitat de catalunya, sau anuncio sobre la formalización de un contrato de servicios (ta-nb-01134.f1). 1.- se hace público, para conocimiento general, que infraestructures de la generalitat de catalunya, sau, sau, empresa pública de la generalitat de catalunya, ha formalizado el contrato que a continuación se detalla. perfil del contratante: http://www.infraestructures.gencat.cat. 2.- objeto del contrato: a) tipo: servicios. b) descripción: contrato de servicios para la asistencia técnica para la redacción del proyecto de trazado de mejora general. nueva carretera. eix del llobregat. implantación de un tercer carril reversible en la carretera c-16, del pk 96+500 al 117+300. tramo: berga – bagà. clave: ta-nb-01134.f1. d) cpv: 71311000-1. g) medio de publicación anuncio de lici"
+    prediction = test_model(paragraph, model)
+    print(prediction)

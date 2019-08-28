@@ -5,7 +5,6 @@ from tkinter import messagebox as MessageBox
 from tkinter import filedialog as FileDialog
 from tkinter.ttk import Progressbar
 
-lg = '#9aadbf'
 import tkinter as tk
 from train_and_test_model import *
 

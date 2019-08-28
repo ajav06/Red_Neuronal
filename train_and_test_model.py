@@ -14,10 +14,10 @@ def read_doc(path): # El parametro es la ruta donde se encuentra almacenado el d
     document = pd.read_csv(path, error_bad_lines=False)
     document.head()
 
-    columns = ['Supervision','Texto']
+    columns = ['Supervision','Texto', 'ID']
     document = document[columns]
     document = document[pd.notnull(document['Texto'])]
-    document.columns = ['Supervision', 'Texto']
+    document.columns = ['Supervision', 'Texto', 'ID']
 
     return document
 

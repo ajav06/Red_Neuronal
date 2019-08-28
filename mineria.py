@@ -5,6 +5,7 @@ from tkinter import messagebox as MessageBox
 from tkinter import filedialog as FileDialog
 from tkinter.ttk import Progressbar
 
+lg = '#9aadbf'
 import tkinter as tk
 from train_and_test_model import *
 
@@ -13,47 +14,53 @@ class Application(tk.Tk):
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
         self.title("Etiquetado")
-        self.iconbitmap('mining-icon.ico')
+        #self.iconbitmap('mining-icon.ico') #Para SO Windows
+        #self.iconbitmap('@~/red_neuronal/mining-icon.xbm') #Para SO Linux
         self.resizable(0,0)
         self.geometry("585x450")
+        self.s = ttk.Style()
+        self.s.configure('My.TFrame', background='#9bdba3')
+
+        #colores
+        
 
         #Tab
         self.tab_control = ttk.Notebook(self, width=580, height=420)
-        self.tab1 = ttk.Frame(self.tab_control)
-        self.tab2 = ttk.Frame(self.tab_control)
+        self.tab1 = ttk.Frame(self.tab_control, style="My.TFrame")
+        self.tab2 = ttk.Frame(self.tab_control, style="My.TFrame")
         self.tab_control.add(self.tab1, text='Entrenar')
         self.tab_control.add(self.tab2, text='Prueba')
         self.tab_control.grid(column=0, row=0, columnspan=3)
 
         #labels tab1
-        self.cor = ttk.Label(self.tab1, text="Correctos:", font=("Arial", 15))
+        self.cor = ttk.Label(self.tab1, background="#9bdba3", text="Correctos:", font=("Arial", 15))
         self.cor.grid(column=0, row=0)
 
-        self.inc = ttk.Label(self.tab1, text="Incorrectos:", font=("Arial", 15))
+        self.inc = ttk.Label(self.tab1, background="#9bdba3", text="Incorrectos:", font=("Arial", 15))
         self.inc.grid(column=2, row=0)
 
-        self.dud = ttk.Label(self.tab1, text="Dudosos:", font=("Arial", 15))
+        self.dud = ttk.Label(self.tab1, background="#9bdba3", text="Dudosos:", font=("Arial", 15))
         self.dud.grid(column=4, row=0)
 
         #Espacio en blanco
-        self.espacio1 = ttk.Label(self.tab1, text="")
+        self.espacio1 = ttk.Label(self.tab1, background="#9bdba3", text="")
         self.espacio1.grid(column=1, row=6)
 
-        self.lab = ttk.Label(self.tab1, text="Entrenando la red neuronal con", font=("Arial", 15))
+        self.lab = ttk.Label(self.tab1, background="#9bdba3", text="Entrenando la red neuronal con", font=("Arial", 15))
         self.lab.grid(column=1, row=7, columnspan=3)
 
-        self.ll = ttk.Label(self.tab1, text="la data de los Boletines", font=("Arial", 15))
+        self.ll = ttk.Label(self.tab1, background="#9bdba3", text="la data de los Boletines", font=("Arial", 15))
         self.ll.grid(column=1, row=8, columnspan=3)
 
-        self.lab1 = ttk.Label(self.tab1, text="(Sólo simulación)", font=("Arial", 15))
+        self.lab1 = ttk.Label(self.tab1, background="#9bdba3", text="(Sólo simulación)", font=("Arial", 15))
         self.lab1.grid(column=1, row=9, columnspan=3)
 
         #Espacio en blanco
-        self.espacio2 = ttk.Label(self.tab1, text="")
+        self.espacio2 = ttk.Label(self.tab1, background="#9bdba3", text="")
         self.espacio2.grid(column=1, row=10)
 
         #Label Paths
-        self.lab1 = ttk.Label(self.tab1, text="Ruta del Documento: ", font=("Arial", 12))
+        self.lab1 = ttk.Label(self.tab1, background="#9bdba3", text="Ruta del Documento: ", font=("Arial", 12))
         self.lab1.grid(column=0, row=12)
 
         #Entry Paths Documents
@@ -63,7 +70,7 @@ class Application(tk.Tk):
         self.entry.insert(0,"boletines/boletines1.csv")
 
         #Espacio en blanco
-        self.espacio3 = ttk.Label(self.tab1, text="")
+        self.espacio3 = ttk.Label(self.tab1, background="#9bdba3", text="")
         self.espacio3.grid(column=1, row=13)
 
         #Progressbar
@@ -71,10 +78,10 @@ class Application(tk.Tk):
         self.progress.grid(column=1, row=14, columnspan=3)
 
         #labels tab2
-        self.exp = ttk.Label(self.tab2, text="Explicando lo que hace proyecto...", font=("Arial", 15))
+        self.exp = ttk.Label(self.tab2, background="#9bdba3", text="Explicando lo que hace proyecto...", font=("Arial", 15))
         self.exp.grid(column=1, row=0, columnspan=2)
 
-        self.etiq = ttk.Label(self.tab2, text="Etiquetas:", font=("Arial", 15))
+        self.etiq = ttk.Label(self.tab2, background="#9bdba3", text="Etiquetas:", font=("Arial", 15))
         self.etiq.grid(column=0, row=2)
 
         #Entrys
@@ -84,7 +91,7 @@ class Application(tk.Tk):
 
         #Botones Estilo
         self.style = ttk.Style()
-        self.style.configure('BW.TButton', foreground='black', background='blue')
+        self.style.configure('BW.TButton', foreground='black', background='#9aadbf')
 
         #Botones tab1
         self.btn2 = ttk.Button(self.tab1, text="Entrenar", style="BW.TButton", command=self.start)
@@ -94,11 +101,11 @@ class Application(tk.Tk):
         self.btn2.grid(column=4, row=8, sticky='ns')
 
         #Espacio en blanco
-        self.espacio4 = ttk.Label(self.tab2, text="")
+        self.espacio4 = ttk.Label(self.tab2, background="#9bdba3", text="")
         self.espacio4.grid(column=5, row=2)
 
         #Espacio en blanco
-        self.espacio5 = ttk.Label(self.tab2, text="")
+        self.espacio5 = ttk.Label(self.tab2, background="#9bdba3", text="")
         self.espacio5.grid(column=8, row=2)
 
         #Botones tab2

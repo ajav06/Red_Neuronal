@@ -77,15 +77,17 @@ class Application(tk.Tk):
         self.progress.grid(column=1, row=14, columnspan=3)
 
         #labels tab2
-        self.exp = ttk.Label(self.tab2, background="#9bdba3", text="Explicando lo que hace proyecto...", font=("Arial", 15))
-        self.exp.grid(column=1, row=0, columnspan=2)
+        self.exp = ttk.Label(self.tab2, background="#9bdba3", text="Prueba una frase para etiquetarla automáticamente como", font=("Arial", 15))
+        self.exp.grid(column=0, row=0, columnspan=100)
+        self.exp1 = ttk.Label(self.tab2, background="#9bdba3", text="Correcta, Incorrecta o Dudosa.", font=("Arial", 15))
+        self.exp1.grid(column=0, row=1, columnspan=100)
 
         self.etiq = ttk.Label(self.tab2, background="#9bdba3", text="Etiquetas:", font=("Arial", 15))
-        self.etiq.grid(column=0, row=2)
+        self.etiq.grid(column=0, row=3)
 
         #Entrys
         self.txt = Text(self.tab2)
-        self.txt.grid(column=2, row=2)
+        self.txt.grid(column=2, row=3)
         self.txt.config(width=30, height=3)
 
         #Botones Estilo
@@ -109,7 +111,7 @@ class Application(tk.Tk):
 
         #Botones tab2
         self.btn3 = ttk.Button(self.tab2, text="Comprobar", command=self.click, style="BW.TButton")
-        self.btn3.grid(column=10, row=2, sticky='ns')
+        self.btn3.grid(column=10, row=3, sticky='ns')
 
 
         #lista de los correctos
@@ -179,7 +181,7 @@ class Application(tk.Tk):
             self.btn4 = ttk.Button(self.tab1, text="Guardar", style="BW.TButton", command=self.save_model)
             self.btn4.grid(column=4, row=14, sticky='ns')
 
-            self.cheat2 = ttk.Label(self.tab1, text="¡Entrenamiento exitoso!", font=("Arial", 15))
+            self.cheat2 = ttk.Label(self.tab1, background="#9bdba3", text="¡Entrenamiento exitoso!", font=("Arial", 15))
             self.cheat2.grid(column=1, row=16, columnspan=3)
 
     def save_model(self):

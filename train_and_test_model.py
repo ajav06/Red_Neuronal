@@ -47,22 +47,24 @@ def test_model(paragraph, model): # Los parametros son: el párrafo de prueba y 
 
     if prediction == 1:
         type_prediction = 'Correcto'
-    elif prediction == 2:
+    elif prediction == 0:
         type_prediction = 'Incorrecto'
     elif prediction == 3:
         type_prediction = 'Dudoso'
 
     return type_prediction
 
-def save_model(paths, model): # Los parametros son: la ruta donde va almacenar y el modelo a almacenar
+def save_model(paths, model, document): # Los parametros son: la ruta donde va almacenar y el modelo a almacenar
     """ Almacena en el disco los modelos de 
         entramiento de la red nueronal """
     filename_model = paths + 'finalized_model.sav'
     filename_count_vect = paths + 'finalized_count_vect.sav'
+    filname_document = paths + 'boletines.csv'
 
     try:
         pickle.dump(model[0], open(filename_model, 'wb'))
         pickle.dump(model[1], open(filename_count_vect, 'wb'))
+        document.to_csv(filname_document)
         print("Datos guardados con éxito...")
     except:
         print("Error inesperado: ", sys.exc_info()[0])
@@ -73,12 +75,14 @@ def load_model(paths): # El parametro es la ruta donde esta almacenado el modelo
         red nueronal, almacenados en el disco"""
     filename_model = paths + 'finalized_model.sav'
     filename_count_vect = paths + 'finalized_count_vect.sav'
+    filname_document = paths + 'boletines.csv'
 
     try:
         model = pickle.load(open(filename_model, 'rb'))
         count_vect = pickle.load(open(filename_count_vect, 'rb'))
+        document = pd.read_csv(filname_document, error_bad_lines=False)
         print("Datos cargados con éxito...")
-        return model, count_vect
+        return model, count_vect, document
     except:
         print("Error inesperado: ", sys.exc_info()[0])
 

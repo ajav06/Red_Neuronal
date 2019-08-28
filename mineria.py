@@ -1,7 +1,8 @@
 from tkinter import ttk
 from tkinter import Menu
 from tkinter import Text
-from tkinter import messagebox
+from tkinter import messagebox as MessageBox
+from tkinter import filedialog as FileDialog
 from tkinter.ttk import Progressbar
 
 import tkinter as tk
@@ -83,11 +84,14 @@ class Application(tk.Tk):
 
         #Botones Estilo
         self.style = ttk.Style()
-        self.style.configure('BW.TButton', foreground='white', background='blue')
+        self.style.configure('BW.TButton', foreground='black', background='blue')
 
         #Botones tab1
         self.btn2 = ttk.Button(self.tab1, text="Entrenar", style="BW.TButton", command=self.start)
         self.btn2.grid(column=4, row=12, sticky='ns')
+
+        self.btn2 = ttk.Button(self.tab1, text="Cargar Modelo", style="BW.TButton", command=self.load_model)
+        self.btn2.grid(column=4, row=8, sticky='ns')
 
         #Espacio en blanco
         self.espacio4 = ttk.Label(self.tab2, text="")
@@ -129,10 +133,14 @@ class Application(tk.Tk):
 
     #Eventos
     def start(self):
+        self.entry.delete(0, tk.END)
+        file_dic = FileDialog.askopenfile(title="Abrir el Boletin")
+        self.entry.insert(0, file_dic.name)
         self.progress["value"] = 0
         self.maxpal = 1500
-        self.progress["maximum"] = 1500
         self.read()
+        self.progress["maximum"] = 1500
+
 
     def read(self):
         self.pal += 500
@@ -143,6 +151,7 @@ class Application(tk.Tk):
             #Model
             entry = self.entry.get()
             document = read_doc(entry)
+            self.doc = document
             self.model = train_model(document)
 
             #List Incorrectos
@@ -168,12 +177,40 @@ class Application(tk.Tk):
             self.cheat2.grid(column=1, row=16, columnspan=3)
 
     def save_model(self):
-        save_model('backup/', self.model)
+        paths = FileDialog.askdirectory(title="Seleccionar Directorio del Respaldo") + '/'
+        save_model(paths, self.model, self.doc)
+        MessageBox.showinfo('Información','El modelo de entramiento\nse ha almacenado con éxito.')
+
+    def load_model(self):
+        #Model
+        paths = FileDialog.askdirectory(title="Abrir Directorio del Respaldo") + '/'
+        load_files = load_model(paths)
+        document = load_files[2]
+        self.model = load_files
+
+        #List Incorrectos
+        incorrectos = document[document.Supervision == 1]
+        items = incorrectos['ID'][:]
+        self.lbtab2.insert(tk.END, *items)
+
+        #List Correctos
+        correctos = document[document.Supervision == 0]
+        items = correctos['ID'][:]
+        self.lbtab1.insert(tk.END, *items)
+
+        #List Dusosos
+        dudosos = document[document.Supervision == 3]
+        items = dudosos['ID'][:]
+        self.lbtab3.insert(tk.END, *items)
+
+        MessageBox.showinfo('Información','El modelo de entramiento\nse ha cargado con éxito.')
 
 
     def click(self):
-        self.res = "El etiquetado " + self.txt.get() + " es (aqui va el resultado)"
-        self.resul.configure(text= self.res)
+        paragraph = self.txt.get("1.0", "end-1c")
+        prediction = test_model(paragraph, self.model)
+        MessageBox.showinfo('Información', 'El texto de prueba que ha\nintroducido es: ' + prediction)
+        self.txt.delete("1.0", "end-1c")
         
 app = Application()
 app.mainloop()

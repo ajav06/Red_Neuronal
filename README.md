@@ -7,6 +7,6 @@ Sistema desarrollado en Python, para el entranamiento y prueba de una red neuron
 * tkinter: biblioteca python para el desarrollo de la interfaz gráfica del sistema.
 
 ## Desarrolladores:
+* Albert Acevedo (https://github.com/ajav06)
 * Gabriel Roa (https://github.com/gaboroa14)
 * Anyelli Villareal (https://github.com/anyiv)
-* Albert Acevedo (https://github.com/ajav06)
